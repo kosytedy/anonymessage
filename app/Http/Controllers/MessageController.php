@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Message;
+use App\Notifications\NewMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 
@@ -35,7 +36,7 @@ class MessageController extends Controller
         ]);
 
         //Send the user an email notification 
-        
+        $user->notify(new NewMessage($user));
 
         return redirect()->route('message-success')->with('status', 'You have sent '.$user->name.' an anonymous messsage!!');
     }
